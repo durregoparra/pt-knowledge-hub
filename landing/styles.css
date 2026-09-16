@@ -176,10 +176,11 @@ ul { list-style:none; }
 }
 .chat__head { display:flex; align-items:center; gap:.7rem; padding-bottom:1rem; border-bottom:1px solid var(--line); }
 .chat__ava {
-  width:40px; height:40px; border-radius:50%; flex:none;
-  background:radial-gradient(circle at 35% 30%, var(--green-mid), var(--green) 70%);
-  display:grid; place-items:center; color:#fff; font-family:var(--font-display); font-weight:600;
+  width:40px; height:40px; border-radius:50%; flex:none; box-sizing:border-box;
+  background:#fff; border:2px solid var(--green); overflow:hidden;
+  display:grid; place-items:center; color:var(--green); font-family:var(--font-display); font-weight:600;
 }
+.chat__ava img { display:block; width:36px; height:36px; object-fit:contain; }
 .chat__who b { display:block; font-family:var(--font-display); color:var(--green); font-weight:600; }
 .chat__who span { font-size:.8rem; color:var(--green-mid); font-weight:700; }
 .chat__body { display:grid; gap:.7rem; padding-top:1rem; }
@@ -272,11 +273,12 @@ ul { list-style:none; }
 }
 .maria__portrait span { font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.55); font-weight:800; }
 .maria__portrait .ring {
-  width:120px; height:120px; border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, var(--green-mid), var(--green) 70%);
-  display:grid; place-items:center; font-family:var(--font-display); font-weight:600; font-size:2.4rem; color:#fff;
+  width:120px; height:120px; border-radius:50%; box-sizing:border-box; overflow:hidden;
+  background:#fff; border:3px solid var(--green-mid); padding:10px;
+  display:grid; place-items:center; font-family:var(--font-display); font-weight:600; font-size:2.4rem; color:var(--green);
   box-shadow:0 0 0 10px rgba(255,255,255,.08), 0 0 0 22px rgba(255,255,255,.04);
 }
+.maria__portrait .ring img { display:block; width:94px; height:94px; object-fit:contain; }
 
 /* =========================================================================
    SCENARIOS ("what you can ask")
