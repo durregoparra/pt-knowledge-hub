@@ -62,3 +62,7 @@ up to date.
 - Make company knowledge easier to **find**.
 - Make company knowledge easier to **use** in daily work.
 - Make company knowledge easier to **maintain** over time.
+
+## First Impression
+
+The user said he didn't understand some sections in the webpage. Specifically the tabs knowledge base and libraries, he said they are confusing.
