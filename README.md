@@ -1,5 +1,10 @@
 # Paraíso Tropical Knowledge Hub
 
+## Reaction
+
+- **Understood:** That it is a virtual assistant that guides Paraíso Tropical employees.
+- **Did not understand:** Whether it also works as a repository of documents and other resources.
+
 A centralized space where employees can access and use company knowledge to
 support their daily work. Find information, explore company resources, and get
 guidance on operational questions and incidents through Maria, our virtual
