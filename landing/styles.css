@@ -165,7 +165,6 @@ ul { list-style:none; }
 .hero { background:var(--cream); padding-top:9rem; padding-bottom:7rem; position:relative; overflow:hidden; }
 .hero__grid { display:grid; grid-template-columns:1.05fr .95fr; gap:4rem; align-items:center; position:relative; z-index:2; }
 .hero__content { max-width:34rem; }
-.hero .h1 { margin-top:1.5rem; }
 .hero .lead { margin-top:1.4rem; }
 .hero__cta { display:flex; align-items:center; gap:1.4rem; margin-top:2.2rem; flex-wrap:wrap; }
 
