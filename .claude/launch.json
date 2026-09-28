@@ -4,8 +4,8 @@
     {
       "name": "landing",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["landing/serve.js"],
-      "port": 4599
+      "runtimeArgs": ["landing/serve.js", "8000"],
+      "port": 8000
     }
   ]
 }

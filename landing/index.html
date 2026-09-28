@@ -219,6 +219,18 @@
           <a href="#" class="btn btn--light">Ask Maria</a>
           <a href="#library" class="btn btn--outline-light">Explore the Library</a>
         </div>
+
+        <form class="form form--inline form--dark" id="signup-form" novalidate>
+          <h3 class="form__title">Get early access</h3>
+          <p class="form__hint">Join the waitlist and we'll let you know when the Hub opens to your team.</p>
+          <div class="form__row">
+            <label class="sr-only" for="signup-email">Email</label>
+            <input class="form__input" id="signup-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" maxlength="254" required />
+            <input class="form__trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button class="btn btn--red" type="submit">Join the waitlist</button>
+          </div>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </header>
 
@@ -251,6 +263,30 @@
         </div>
       </div>
     </section>
+
+    <!-- ===================== FEEDBACK ===================== -->
+    <section class="rounded-section rounded-section--cream" id="feedback">
+      <div class="container pad-x section feedback__inner">
+        <div class="reveal">
+          <span class="eyebrow">Feedback</span>
+          <h2 class="h2" style="margin-top:1rem">Tell us what you think</h2>
+          <p class="lead" style="margin-top:1.1rem">Ideas, problems, or questions about the Hub and Maria — every comment helps us improve.</p>
+        </div>
+        <form class="form reveal" id="feedback-form" novalidate>
+          <div class="form__field">
+            <label class="form__label" for="feedback-message">Your feedback</label>
+            <textarea class="form__input" id="feedback-message" name="message" rows="5" maxlength="2000" required></textarea>
+          </div>
+          <div class="form__field">
+            <label class="form__label" for="feedback-email">Email <span>(optional)</span></label>
+            <input class="form__input" id="feedback-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="So we can reply" />
+          </div>
+          <input class="form__trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button class="btn btn--primary" type="submit">Send feedback</button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
   </main>
 
   <!-- ===================== FOOTER ===================== -->
@@ -268,7 +304,7 @@
         </div>
         <div class="footer__col">
           <h5>Support</h5>
-          <a href="#faq">Help &amp; FAQ</a><a href="#">Give feedback</a><a href="#">Report an issue</a>
+          <a href="#faq">Help &amp; FAQ</a><a href="#feedback">Give feedback</a><a href="#">Report an issue</a>
         </div>
         <div class="footer__col">
           <h5>Company</h5>
@@ -284,6 +320,8 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script>
     const nav = document.getElementById('nav');
     const onScroll = () => nav.classList.toggle('is-stuck', window.scrollY > 24);
@@ -297,6 +335,48 @@
     document.querySelectorAll('.faq__q').forEach(q => {
       q.addEventListener('click', () => q.parentElement.classList.toggle('is-open'));
     });
+
+    // ---------- Forms → Supabase ----------
+    const sb = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+    const cleanEmail = (v) => (v || '').trim().toLowerCase() || null;
+
+    function handleForm(form, table, toRow, successMsg, isOkError = () => false) {
+      const status = form.querySelector('.form__status');
+      const button = form.querySelector('button[type=submit]');
+      const setStatus = (msg, kind) => { status.textContent = msg; status.className = 'form__status' + (kind ? ' is-' + kind : ''); };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (form.website.value) return; // honeypot: bots only
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+
+        button.disabled = true;
+        setStatus('Sending…');
+        // No .select(): visitors can insert but not read.
+        const { error } = await sb.from(table).insert(toRow(new FormData(form)));
+        button.disabled = false;
+
+        if (error && !isOkError(error)) {
+          console.error(error);
+          setStatus('Something went wrong. Please try again.', 'error');
+          return;
+        }
+        form.reset();
+        setStatus(successMsg, 'ok');
+      });
+    }
+
+    handleForm(
+      document.getElementById('signup-form'), 'signups',
+      (d) => ({ email: cleanEmail(d.get('email')) }),
+      "Thanks! You're on the list.",
+      (err) => err.code === '23505' // already signed up — same answer
+    );
+    handleForm(
+      document.getElementById('feedback-form'), 'feedback',
+      (d) => ({ message: d.get('message').trim(), email: cleanEmail(d.get('email')) }),
+      'Thanks for your feedback!'
+    );
   </script>
 </body>
 </html>
