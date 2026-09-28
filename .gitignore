@@ -12,6 +12,9 @@ desktop.ini
 node_modules/
 npm-debug.log*
 
+# Environment variables (secrets)
+.env.local
+
 # Local Claude Code settings (keep launch.json, ignore personal settings)
 .claude/settings.local.json
 
