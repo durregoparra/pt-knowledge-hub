@@ -5,7 +5,8 @@
    Everything invented to fill gaps is marked [REVISAR] in the HTML.
    ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+/* Fonts (Fredoka + Nunito) are loaded with a <link> in the layouts — see lib/fonts.ts.
+   The bundler drops a remote @import from this file. */
 
 /* ---------- design tokens ---------- */
 :root {

@@ -3,15 +3,9 @@
   "configurations": [
     {
       "name": "landing",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["landing/serve.js", "8000"],
-      "port": 8000
-    },
-    {
-      "name": "testigo",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["-e", "require('http').createServer((q,r)=>require('fs').readFile('testigo/testigo.html',(e,d)=>{r.writeHead(e?404:200,{'Content-Type':'text/html; charset=utf-8'});r.end(e?'Not found':d)})).listen(8001)"],
-      "port": 8001
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
     }
   ]
 }

@@ -1,0 +1,278 @@
+import Faq from '@/components/Faq';
+import FeedbackForm from '@/components/FeedbackForm';
+import MariaAvatar from '@/components/MariaAvatar';
+import Nav from '@/components/Nav';
+import RevealObserver from '@/components/RevealObserver';
+import SignupForm from '@/components/SignupForm';
+
+const Confetti = ({ light = false }: { light?: boolean }) => (
+  <div className={light ? 'confetti confetti--light' : 'confetti'} aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+);
+
+const QuestionIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" /><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.7M12 17h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+);
+
+export default function Home() {
+  return (
+    <>
+      {/* ===================== NAV ===================== */}
+      <Nav />
+
+      <main>
+        {/* ===================== HERO ===================== */}
+        <section className="hero">
+          <Confetti light />
+          <div className="container pad-x">
+            <div className="hero__grid">
+              <div className="hero__content">
+                <h1 className="h1">Company knowledge, ready when you need it</h1>
+                <p className="lead">Paraíso Tropical Knowledge Hub is a centralized knowledge management platform designed to capture, organize, and make company knowledge accessible and actionable.</p>
+                <div className="hero__cta">
+                  <a href="#ask" className="btn btn--red">Ask Maria</a>{' '}
+                  <a href="#library" className="link-arrow">
+                    Explore the Library
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </a>
+                </div>
+              </div>
+
+              <div className="hero__visual">
+                <div className="chat" aria-hidden="true">
+                  <div className="chat__head">
+                    <div className="chat__ava"><MariaAvatar /></div>
+                    <div className="chat__who"><b>Maria</b><span>Virtual assistant · EN / ES</span></div>
+                  </div>
+                  <div className="chat__body">
+                    <div className="bubble bubble--user">A customer wants to return an item without a receipt. What should I do?</div>
+                    <div className="bubble bubble--maria">Follow the <b>returns without proof of purchase</b> steps: verify the item, offer store credit at the current price, and log it in the returns sheet. Escalate to a supervisor above <b>$50</b>.</div>
+                    <div className="chat__sources">
+                      <i>Returns Policy</i><i>Front-desk SOP</i><i>Team meeting · Jan 2026</i>
+                    </div>
+                  </div>
+                  <div className="chat__input">
+                    Ask a question…
+                    <span><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M13 6l6 6-6 6" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== ASK MARIA ===================== */}
+        <header className="maria" id="ask">
+          <Confetti />
+          <div className="container pad-x section maria__inner">
+            <div className="reveal">
+              <span className="maria__badge"><span className="dot"></span> Ask Maria</span>
+              <h2 className="h2">Get answers and guidance</h2>
+              <p className="lead">Maria, the Hub&apos;s virtual assistant, helps employees use this knowledge to answer questions and navigate day-to-day operational situations.</p>
+              <div className="maria__cta">
+                <a href="#" className="btn btn--light">Ask Maria</a>
+              </div>
+            </div>
+            <div className="maria__portrait">
+              <div className="ring"><MariaAvatar /></div>
+            </div>
+          </div>
+        </header>
+
+        {/* ===================== WHAT YOU CAN ASK ===================== */}
+        <section className="section">
+          <div className="container pad-x">
+            <div className="scn__head reveal">
+              <h2 className="h2" style={{ maxWidth: '26rem' }}>Built for the questions that come up during the day</h2>
+              <p className="lead" style={{ maxWidth: '26rem' }}>A few examples of what employees can ask.</p>
+            </div>
+            <div className="scn__grid">
+              <article className="scn__card reveal">
+                <span className="scn__tag">Operations</span>
+                <div className="scn__q"><QuestionIcon /><b>A delivery arrived short or damaged — what now?</b></div>
+                <p className="scn__a">Maria explains how to record the discrepancy, who to notify, and how to contact the supplier.</p>
+              </article>
+              <article className="scn__card reveal">
+                <span className="scn__tag">Customer service</span>
+                <div className="scn__q"><QuestionIcon /><b>How do I handle a customer complaint?</b></div>
+                <p className="scn__a">Maria walks through the steps to listen, resolve, and log the complaint, and when to escalate.</p>
+              </article>
+              <article className="scn__card reveal">
+                <span className="scn__tag">Compliance</span>
+                <div className="scn__q"><QuestionIcon /><b>Where is the food-safety checklist?</b></div>
+                <p className="scn__a">Maria links straight to the current checklist and the schedule for completing it.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== KNOWLEDGE LIBRARY ===================== */}
+        <section className="rounded-section rounded-section--cream integ" id="library">
+          <div className="container pad-x section integ__inner">
+            <div className="reveal">
+              <span className="eyebrow">Knowledge Library</span>
+              <h2 className="h2" style={{ marginTop: '1rem' }}>Find documents and company knowledge</h2>
+              <p className="lead">One place to browse and search company documents and resources — no more digging through folders, inboxes, and chat threads.</p>
+              <ul className="integ__list">
+                <li><CheckIcon /> Operations manuals &amp; SOPs</li>
+                <li><CheckIcon /> HR &amp; workplace guidelines</li>
+                <li><CheckIcon /> Supplier &amp; product information</li>
+                <li><CheckIcon /> Forms, checklists, contacts &amp; templates</li>
+              </ul>
+            </div>
+            <div className="integ__cluster reveal" aria-hidden="true">
+              <div className="integ__cluster-core">Library</div>
+              <span className="integ__cluster-node" style={{ left: '8%', top: '12%' }}>SOPs</span>
+              <span className="integ__cluster-node" style={{ right: '10%', top: '8%' }}>Manuals</span>
+              <span className="integ__cluster-node" style={{ left: '4%', bottom: '18%' }}>Forms</span>
+              <span className="integ__cluster-node" style={{ right: '6%', bottom: '12%' }}>Contacts</span>
+              <span className="integ__cluster-node" style={{ left: '44%', top: '2%' }}>HR</span>
+              <span className="integ__cluster-node" style={{ right: '1%', top: '46%' }}>Suppliers</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== ADD KNOWLEDGE ===================== */}
+        <section className="rounded-section rounded-section--green-tint" id="add">
+          <div className="container pad-x section">
+            <div className="reveal" style={{ maxWidth: '42rem' }}>
+              <span className="eyebrow">Add Knowledge</span>
+              <h2 className="h2" style={{ marginTop: '1rem' }}>Capture new knowledge</h2>
+              <p className="lead" style={{ marginTop: '1.1rem' }}>Turn what your teams already produce and decide into knowledge everyone can use.</p>
+            </div>
+            <div className="srcgrid">
+              <div className="srcgrid__item reveal">
+                <div className="srcgrid__icon" style={{ background: '#fff' }}><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="#00594c" strokeWidth="2" /><path d="M14 3v6h6M8 13h8M8 17h6" stroke="#00594c" strokeWidth="2" strokeLinecap="round" /></svg></div>
+                <h4 className="h4">Formal documents</h4>
+              </div>
+              <div className="srcgrid__item reveal">
+                <div className="srcgrid__icon" style={{ background: '#fff' }}><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="#00594c" strokeWidth="2" /><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.7M18 20a5 5 0 0 0-3-4.6" stroke="#00594c" strokeWidth="2" strokeLinecap="round" /></svg></div>
+                <h4 className="h4">Meetings</h4>
+              </div>
+              <div className="srcgrid__item reveal">
+                <div className="srcgrid__icon" style={{ background: '#fff' }}><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#00594c" strokeWidth="2" /><path d="m4 7 8 6 8-6" stroke="#00594c" strokeWidth="2" strokeLinecap="round" /></svg></div>
+                <h4 className="h4">Emails</h4>
+              </div>
+              <div className="srcgrid__item reveal">
+                <div className="srcgrid__icon" style={{ background: '#fff' }}><svg viewBox="0 0 24 24" fill="none"><path d="M5 20v-9M12 20V5M19 20v-12" stroke="#00594c" strokeWidth="2" strokeLinecap="round" /></svg></div>
+                <h4 className="h4">Reports</h4>
+              </div>
+              <div className="srcgrid__item reveal">
+                <div className="srcgrid__icon" style={{ background: '#fff' }}><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 21l-5 2.1 1-5.5-4-3.9 5.5-.8L12 3Z" stroke="#00594c" strokeWidth="2" strokeLinejoin="round" /></svg></div>
+                <h4 className="h4">Good practices</h4>
+              </div>
+              <div className="srcgrid__item reveal">
+                <div className="srcgrid__icon" style={{ background: '#fff' }}><svg viewBox="0 0 24 24" fill="none"><path d="M5 21V4M5 4h11l-2 4 2 4H5" stroke="#00594c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                <h4 className="h4">Owner directions</h4>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== MANAGE KNOWLEDGE ===================== */}
+        <section className="rounded-section" id="manage">
+          <div className="container pad-x section">
+            <div className="reveal" style={{ maxWidth: '44rem' }}>
+              <span className="eyebrow">Manage Knowledge</span>
+              <h2 className="h2" style={{ marginTop: '1rem' }}>Review, validate, update, and maintain knowledge</h2>
+              <p className="lead" style={{ marginTop: '1.1rem' }}>Knowledge is only useful when it is accurate. A named owner for each area keeps it that way.</p>
+            </div>
+            <div className="feature-cards">
+              <div className="fcard reveal">
+                <div className="fcard__icon" style={{ background: 'var(--green-tint)' }}><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#00594c" strokeWidth="2" /><path d="m20 20-4-4" stroke="#00594c" strokeWidth="2" strokeLinecap="round" /></svg></div>
+                <h4 className="h4">Review</h4>
+                <p>Check new and existing content for accuracy and completeness.</p>
+              </div>
+              <div className="fcard reveal">
+                <div className="fcard__icon" style={{ background: '#fdeede' }}><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="#ee2737" strokeWidth="2" strokeLinejoin="round" /><path d="m9 12 2 2 4-4" stroke="#ee2737" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                <h4 className="h4">Validate</h4>
+                <p>Approve content before it goes live.</p>
+              </div>
+              <div className="fcard reveal">
+                <div className="fcard__icon" style={{ background: 'var(--green-tint)' }}><svg viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 0 0-14.5-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.5 4.5L20 16M20 20v-4h-4" stroke="#00594c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+                <h4 className="h4">Update &amp; maintain</h4>
+                <p>Refresh on a regular cycle and whenever things change.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================== FOOTER CTA ===================== */}
+        <header className="footcta">
+          <Confetti />
+          <div className="container pad-x section footcta__inner reveal">
+            <h2 className="h2">Have a question? Ask Maria.</h2>
+            <p className="lead">Get reliable information and guidance for daily operations, questions and incidents.</p>
+            <div className="footcta__row">
+              <a href="#" className="btn btn--light">Ask Maria</a>{' '}
+              <a href="#library" className="btn btn--outline-light">Explore the Library</a>
+            </div>
+
+            <SignupForm />
+          </div>
+        </header>
+
+        {/* ===================== FAQ ===================== */}
+        <section className="section faq" id="faq">
+          <div className="container pad-x faq__inner">
+            <div className="reveal" style={{ textAlign: 'center' }}>
+              <h2 className="h2">Frequently asked questions</h2>
+              <p className="lead" style={{ marginTop: '1rem' }}>How the Knowledge Hub and Maria work.</p>
+            </div>
+            <Faq />
+          </div>
+        </section>
+
+        {/* ===================== FEEDBACK ===================== */}
+        <section className="rounded-section rounded-section--cream" id="feedback">
+          <div className="container pad-x section feedback__inner">
+            <div className="reveal">
+              <span className="eyebrow">Feedback</span>
+              <h2 className="h2" style={{ marginTop: '1rem' }}>Tell us what you think</h2>
+              <p className="lead" style={{ marginTop: '1.1rem' }}>Ideas, problems, or questions about the Hub and Maria — every comment helps us improve.</p>
+            </div>
+            <FeedbackForm />
+          </div>
+        </section>
+      </main>
+
+      {/* ===================== FOOTER ===================== */}
+      <footer className="footer">
+        <div className="container pad-x">
+          <div className="footer__top">
+            <div>
+              <div className="footer__brand"><span className="mark" aria-hidden="true"></span> Paraíso Tropical</div>
+              <p className="footer__tagline">The Knowledge Hub — one place to capture, organize and use company knowledge.</p>
+              <div className="footer__badges" aria-hidden="true"><i>SECURE ACCESS</i><i>EN / ES</i></div>
+            </div>
+            <div className="footer__col">
+              <h5>Knowledge Hub</h5>
+              <a href="#ask">Ask Maria</a><a href="#library">Knowledge Library</a><a href="#add">Add Knowledge</a><a href="#manage">Manage Knowledge</a>
+            </div>
+            <div className="footer__col">
+              <h5>Support</h5>
+              <a href="#faq">Help &amp; FAQ</a><a href="#feedback">Give feedback</a><a href="#">Report an issue</a>
+            </div>
+            <div className="footer__col">
+              <h5>Company</h5>
+              <a href="https://paraisotropical.ca" target="_blank" rel="noopener">paraisotropical.ca</a><a href="#">About the Hub</a><a href="#">Contact</a>
+            </div>
+          </div>
+          <div className="footer__bottom">
+            <span>© 2026 Paraíso Tropical. Internal tool for employees.</span>
+            <nav>
+              <a href="#">Privacy</a><a href="#">Acceptable use</a><a href="#">Language: EN / ES</a>
+            </nav>
+          </div>
+        </div>
+      </footer>
+
+      <RevealObserver />
+    </>
+  );
+}

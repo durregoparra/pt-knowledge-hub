@@ -68,6 +68,25 @@ up to date.
 - Make company knowledge easier to **use** in daily work.
 - Make company knowledge easier to **maintain** over time.
 
+## Development
+
+The site is a Next.js app (App Router, TypeScript).
+
+```bash
+npm install
+npm run dev
+```
+
+Then open http://localhost:3000 (the admin page is at `/admin`).
+
+- The waitlist and feedback forms post to `/api/signups` and `/api/feedback`. Those
+  server routes write to Supabase with the secret key; the browser never does.
+- The admin page signs in with Supabase Auth and reads with the public key.
+- Settings come from `.env.local` (not committed): `SUPABASE_URL`,
+  `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL`,
+  `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Only `NEXT_PUBLIC_*` values reach the browser.
+- Anonymous visitors cannot write to the database directly; only the server routes can.
+
 ## First Impression
 
 The user said he didn't understand some sections in the webpage. Specifically the tabs knowledge base and libraries, he said they are confusing.
