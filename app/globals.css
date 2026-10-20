@@ -385,6 +385,7 @@ body.admin { background:var(--cream); min-height:100vh; }
 .admin__user .btn { padding:.55rem 1.2rem; font-size:.9rem; }
 .admin__main { padding-block:3rem 5rem; display:grid; gap:2rem; }
 .admin__muted { color:var(--text-muted); margin:.3rem 0 1.5rem; }
+.admin__main a { color:var(--green); font-weight:700; text-decoration:underline; }
 
 .admin__login { width:100%; max-width:26rem; margin:3rem auto 0; background:var(--paper); border-radius:var(--radius-card); padding:2.2rem; box-shadow:var(--shadow-card); }
 .admin__login .btn { justify-self:stretch; }

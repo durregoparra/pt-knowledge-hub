@@ -22,6 +22,14 @@ export function parseMessage(input: unknown): Parsed<string> {
   return { ok: true, value: message };
 }
 
+// Passwords are not trimmed. 72 is the longest password Supabase Auth accepts.
+export const PASSWORD_MIN = 8;
+export function parsePassword(input: unknown): Parsed<string> {
+  if (typeof input !== 'string') return { ok: false };
+  if (input.length < PASSWORD_MIN || input.length > 72) return { ok: false };
+  return { ok: true, value: input };
+}
+
 // Honeypot field: real visitors never fill it.
 export const isBot = (body: Record<string, unknown>) => Boolean(body.website);
 

@@ -53,9 +53,9 @@ On this Windows machine `git` is not on PATH; it ships with GitHub Desktop under
 
 Next.js App Router with TypeScript, at the repo root. Import alias `@/*` maps to the root.
 
-### Two root layouts
+### Three root layouts
 
-`app/(site)/` and `app/(admin)/` are route groups, each with its own root `layout.tsx` (its own `<html>`/`<body>`). They exist because the admin page needs `<body class="admin">`. Both import `app/globals.css` and load Google Fonts through a `<link>` using `lib/fonts.ts` — a remote `@import` inside the CSS file is dropped by the bundler, so fonts must stay in the layouts.
+`app/(site)/` (landing), `app/(app)/` (login, register and the signed-in pages) and `app/(admin)/` are route groups, each with its own root `layout.tsx` (its own `<html>`/`<body>`). They exist because the app and admin pages need `<body class="admin">`. Moving between groups is a full page load, so auth code navigates with `window.location`. All import `app/globals.css` and load Google Fonts through a `<link>` using `lib/fonts.ts` — a remote `@import` inside the CSS file is dropped by the bundler, so fonts must stay in the layouts.
 
 ### Styling
 
@@ -63,22 +63,24 @@ One global stylesheet, `app/globals.css`, with BEM-style class names (`hero__gri
 
 ### Data flow and the security boundary
 
-This describes the code as it stands today, which predates the Project rules above and does not fully comply with them yet (the admin page reads from the browser, and the landing form routes use the secret key). New code follows the Project rules. There are two Supabase clients:
+There is no Supabase client in the browser. There are two on the server, both marked `server-only`:
 
-- `lib/supabase-server.ts` — secret key (`SUPABASE_SECRET_KEY`), marked `server-only`. Used only by the API routes. It bypasses RLS.
-- `lib/supabase-browser.ts` — publishable key (`NEXT_PUBLIC_*`). Used only by the admin page.
+- `lib/supabase-session.ts` — publishable key plus the user's session, kept in cookies by `@supabase/ssr`, so RLS applies. Used by the auth routes and by pages to read the signed-in user (`getSessionUser()`).
+- `lib/supabase-server.ts` — secret key (`SUPABASE_SECRET_KEY`). It bypasses RLS. Used by the admin routes (`/api/admin/*`, through `lib/admin-data.ts`) and, as the one exception that predates the Project rules, by the landing form routes.
+
+**Auth.** `/login` and `/register` render `components/AuthForm.tsx`, which POSTs to `/api/auth/login` and `/api/auth/register`; `components/LogoutButton.tsx` POSTs to `/api/auth/logout`. `proxy.ts` (Next.js 16's name for middleware) refreshes the session cookies and redirects signed-out visitors of `/hub` and `/admin` to `/login?next=…`; keep its `matcher` and `PROTECTED` list in step with new app paths. The check that counts is in `app/(app)/(protected)/layout.tsx`: put every signed-in page under that folder. `/hub` is a placeholder home.
+
+**Admin gate.** `lib/admin.ts` compares the session email with `ADMIN_EMAILS` (comma-separated). `app/(admin)/admin/page.tsx` shows the dashboard only to admins, and each `/api/admin/*` route calls `requireAdmin()` before reading. `ADMIN_EMAILS` trusts the email on the account, and the Supabase project currently auto-confirms new emails — so only list addresses that already have an account, or turn on email confirmation first.
 
 **Landing forms never talk to Supabase.** `SignupForm` and `FeedbackForm` use the `useSubmitForm` hook (`lib/submitForm.ts`) to POST JSON to `/api/signups` and `/api/feedback`. Those routes validate with `lib/validation.ts` and insert with the server client. Because the secret key skips RLS, the routes are the only gate: validation there must mirror the table check constraints, and only explicitly named columns are inserted. A duplicate signup (`23505`) is reported as success, and a filled `website` honeypot field returns success without writing.
 
-**The admin page** (`app/(admin)/admin/page.tsx`, a client component) signs in with Supabase Auth email/password and reads `signups` and `feedback` directly from the browser as the `authenticated` role, relying on RLS select policies.
-
 ### Database
 
-Current state of `signups` and `feedback`: RLS enabled, `anon` has no insert permission (revoked in `20261010120000_revoke_anon_insert.sql`), `authenticated` can select and insert. Never edit a migration that has already been applied.
+Current state of `signups` and `feedback`: RLS enabled with no policies, and neither `anon` nor `authenticated` has any grant (see `20261012120000_lock_signups_and_feedback.sql`), so only the secret key reaches them. Never edit a migration that has already been applied.
 
 ### Environment
 
-`.env.local` (git-ignored) supplies `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Only `NEXT_PUBLIC_*` values are bundled for the browser.
+`.env.local` (git-ignored) supplies `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and `ADMIN_EMAILS`. Only `NEXT_PUBLIC_*` values are bundled for the browser.
 
 ### Hosting
 
