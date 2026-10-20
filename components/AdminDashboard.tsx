@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { KNOWLEDGE_TYPES, SOURCE_TYPES, STATUSES, type Knowledge } from '@/lib/knowledge';
 
 type Signup = { email: string; created_at: string };
 type Feedback = { message: string; email: string | null; created_at: string };
+type KnowledgeRow = Knowledge & { owner: string };
 type Loaded<T> = { state: 'loading' } | { state: 'error' } | { state: 'ok'; rows: T[] };
 
 const fmtDate = (iso: string) => new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
@@ -42,6 +44,7 @@ const count = (data: Loaded<unknown>) => (data.state === 'loading' ? '…' : dat
 export default function AdminDashboard() {
   const [signups, setSignups] = useState<Loaded<Signup>>({ state: 'loading' });
   const [feedback, setFeedback] = useState<Loaded<Feedback>>({ state: 'loading' });
+  const [knowledge, setKnowledge] = useState<Loaded<KnowledgeRow>>({ state: 'loading' });
 
   useEffect(() => {
     let current = true;
@@ -50,13 +53,47 @@ export default function AdminDashboard() {
       .catch((err) => { console.error(err); if (current) setSignups({ state: 'error' }); });
     fetchRows<Feedback>('/api/admin/feedback')
       .then((rows) => { if (current) setFeedback({ state: 'ok', rows }); })
-      .catch((err) => { console.error(err); if (current) setFeedback({ state: 'error' }); });    return () => { current = false; };
+      .catch((err) => { console.error(err); if (current) setFeedback({ state: 'error' }); });
+    fetchRows<KnowledgeRow>('/api/admin/knowledge')
+      .then((rows) => { if (current) setKnowledge({ state: 'ok', rows }); })
+      .catch((err) => { console.error(err); if (current) setKnowledge({ state: 'error' }); });
+    return () => { current = false; };
   }, []);
 
   const signupRows = signups.state === 'ok' ? signups.rows : [];
 
   return (
     <div id="dashboard">
+      <section className="admin__panel">
+        <div className="admin__panel-head">
+          <h2 className="h4">Knowledge <span className="admin__count">{count(knowledge)}</span></h2>
+        </div>
+        <div className="admin__panel-body">
+          {knowledge.state === 'loading' && 'Loading…'}
+          {knowledge.state === 'error' && 'Could not load knowledge documents.'}
+          {knowledge.state === 'ok' && knowledge.rows.length === 0 && 'No documents yet.'}
+          {knowledge.state === 'ok' && knowledge.rows.length > 0 && (
+            <div className="admin__table-wrap">
+              <table className="admin__table">
+                <thead><tr><th>Name</th><th>Owner</th><th>Type</th><th>Source</th><th>Status</th><th>Added</th></tr></thead>
+                <tbody>
+                  {knowledge.rows.map((r) => (
+                    <tr key={r.id}>
+                      <td>{r.name}</td>
+                      <td>{r.owner}</td>
+                      <td>{KNOWLEDGE_TYPES[r.knowledge_type]}</td>
+                      <td>{SOURCE_TYPES[r.source_type]}</td>
+                      <td>{STATUSES[r.status]}</td>
+                      <td className="admin__date">{fmtDate(r.created_at)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </section>
+
       <section className="admin__panel">
         <div className="admin__panel-head">
           <h2 className="h4">Signups <span className="admin__count">{count(signups)}</span></h2>

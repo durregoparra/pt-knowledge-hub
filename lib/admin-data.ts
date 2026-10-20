@@ -14,3 +14,15 @@ export async function fetchAllRows<T>(table: string, columns: string): Promise<T
     if (data.length < PAGE) return rows;
   }
 }
+
+// Email of every account, by user id. Same rules as fetchAllRows: admin routes only.
+export async function fetchUserEmails(): Promise<Map<string, string>> {
+  const sb = getServerSupabase();
+  const PER_PAGE = 1000, emails = new Map<string, string>();
+  for (let page = 1; ; page++) {
+    const { data, error } = await sb.auth.admin.listUsers({ page, perPage: PER_PAGE });
+    if (error) throw error;
+    data.users.forEach((u) => emails.set(u.id, u.email ?? ''));
+    if (data.users.length < PER_PAGE) return emails;
+  }
+}

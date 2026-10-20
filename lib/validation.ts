@@ -22,6 +22,20 @@ export function parseMessage(input: unknown): Parsed<string> {
   return { ok: true, value: message };
 }
 
+// Trimmed text of 1..max characters.
+export function parseText(input: unknown, max: number): Parsed<string> {
+  if (typeof input !== 'string') return { ok: false };
+  const text = input.trim();
+  if (text.length < 1 || text.length > max) return { ok: false };
+  return { ok: true, value: text };
+}
+
+// One of the keys of `options`.
+export function parseChoice<K extends string>(input: unknown, options: Record<K, string>): Parsed<K> {
+  if (typeof input !== 'string' || !Object.hasOwn(options, input)) return { ok: false };
+  return { ok: true, value: input as K };
+}
+
 // Passwords are not trimmed. 72 is the longest password Supabase Auth accepts.
 export const PASSWORD_MIN = 8;
 export function parsePassword(input: unknown): Parsed<string> {

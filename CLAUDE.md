@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Paraíso Tropical Knowledge Hub: a marketing landing page (waitlist + feedback forms) and a private admin page, backed by Supabase. Maria, the virtual assistant shown on the landing, is not implemented yet — the chat in the hero is static markup.
+Paraíso Tropical Knowledge Hub: a marketing landing page (waitlist + feedback forms), a signed-in hub where employees register knowledge documents, and a private admin page, backed by Supabase. Maria, the virtual assistant shown on the landing, is not implemented yet — the chat in the hero is static markup.
 
 All code, comments, docs and site copy are written in **English**, even though the owner works in Spanish.
 
@@ -68,7 +68,9 @@ There is no Supabase client in the browser. There are two on the server, both ma
 - `lib/supabase-session.ts` — publishable key plus the user's session, kept in cookies by `@supabase/ssr`, so RLS applies. Used by the auth routes and by pages to read the signed-in user (`getSessionUser()`).
 - `lib/supabase-server.ts` — secret key (`SUPABASE_SECRET_KEY`). It bypasses RLS. Used by the admin routes (`/api/admin/*`, through `lib/admin-data.ts`) and, as the one exception that predates the Project rules, by the landing form routes.
 
-**Auth.** `/login` and `/register` render `components/AuthForm.tsx`, which POSTs to `/api/auth/login` and `/api/auth/register`; `components/LogoutButton.tsx` POSTs to `/api/auth/logout`. `proxy.ts` (Next.js 16's name for middleware) refreshes the session cookies and redirects signed-out visitors of `/hub` and `/admin` to `/login?next=…`; keep its `matcher` and `PROTECTED` list in step with new app paths. The check that counts is in `app/(app)/(protected)/layout.tsx`: put every signed-in page under that folder. `/hub` is a placeholder home.
+**Auth.** `/login` and `/register` render `components/AuthForm.tsx`, which POSTs to `/api/auth/login` and `/api/auth/register`; `components/LogoutButton.tsx` POSTs to `/api/auth/logout`. `proxy.ts` (Next.js 16's name for middleware) refreshes the session cookies and redirects signed-out visitors of `/hub` and `/admin` to `/login?next=…`; keep its `matcher` and `PROTECTED` list in step with new app paths. The check that counts is in `app/(app)/(protected)/layout.tsx`: put every signed-in page under that folder. The matcher also covers `/api/knowledge` (to refresh cookies; the route answers 401 itself rather than redirecting).
+
+**Knowledge.** `/hub` renders `components/KnowledgeLibrary.tsx`, which GETs and POSTs `/api/knowledge`. That route uses `getSessionSupabase()`, so RLS limits it to the user's own rows; it validates with `lib/validation.ts` and inserts only `name`, `path`, `knowledge_type` and `source_type`. Option keys and labels live in `lib/knowledge.ts` and must match the table check constraints. The admin reads every document through `/api/admin/knowledge`, which adds each owner's email via `fetchUserEmails()` in `lib/admin-data.ts`.
 
 **Admin gate.** `lib/admin.ts` compares the session email with `ADMIN_EMAILS` (comma-separated). `app/(admin)/admin/page.tsx` shows the dashboard only to admins, and each `/api/admin/*` route calls `requireAdmin()` before reading. `ADMIN_EMAILS` trusts the email on the account, and the Supabase project currently auto-confirms new emails — so only list addresses that already have an account, or turn on email confirmation first.
 
@@ -76,7 +78,11 @@ There is no Supabase client in the browser. There are two on the server, both ma
 
 ### Database
 
-Current state of `signups` and `feedback`: RLS enabled with no policies, and neither `anon` nor `authenticated` has any grant (see `20261012120000_lock_signups_and_feedback.sql`), so only the secret key reaches them. Never edit a migration that has already been applied.
+Current state of `signups` and `feedback`: RLS enabled with no policies, and neither `anon` nor `authenticated` has any grant (see `20261012120000_lock_signups_and_feedback.sql`), so only the secret key reaches them.
+
+`knowledge` (`20261019120000_create_knowledge.sql`): `user_id` defaults to `auth.uid()` and `status` to `pending_review`. `authenticated` has `select` and a column-level `insert` on the four user fields only, so users cannot set the owner or the status; policies allow selecting and inserting only rows where `user_id = auth.uid()`. There is no update or delete yet. `anon` has no grant.
+
+Never edit a migration that has already been applied.
 
 ### Environment
 

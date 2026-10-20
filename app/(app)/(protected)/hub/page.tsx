@@ -1,7 +1,8 @@
+import KnowledgeLibrary from '@/components/KnowledgeLibrary';
 import { isAdminEmail } from '@/lib/admin';
 import { getSessionUser } from '@/lib/supabase-session';
 
-// Placeholder home for signed-in users until the knowledge pages exist.
+// Home for signed-in users: register knowledge documents and see your own.
 export default async function HubPage() {
   const user = await getSessionUser();
 
@@ -12,10 +13,11 @@ export default async function HubPage() {
           <h1 className="h4">Welcome to the Knowledge Hub</h1>
         </div>
         <div className="admin__panel-body">
-          <p>You are signed in. The knowledge library is not available yet.</p>
+          <p>Register the documents Maria should learn from. Each one starts as pending review.</p>
           {isAdminEmail(user?.email) && <p><a href="/admin">Go to the admin panel</a></p>}
         </div>
       </section>
+      <KnowledgeLibrary />
     </main>
   );
 }
