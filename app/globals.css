@@ -407,6 +407,13 @@ body.admin { background:var(--cream); min-height:100vh; }
 .admin__date { color:var(--text-muted); white-space:nowrap; font-size:.88rem; }
 .admin__table td.admin__date { word-break:normal; }
 
+/* Replace-document pop-up (KnowledgeLibrary): a native <dialog> styled as an admin panel. */
+.admin__dialog { border:0; width:min(34rem, calc(100% - 2rem)); margin:auto; color:var(--text); }
+.admin__dialog::backdrop { background:rgba(0,0,0,.45); }
+.admin__dialog-text { margin-bottom:1.2rem; }
+.admin__dialog-actions { display:flex; gap:.8rem; flex-wrap:wrap; }
+.admin__dialog .btn--outline { border:2px solid var(--green); }
+
 .admin__fb-list { display:grid; gap:.9rem; }
 .admin__fb { border:1px solid var(--line); border-radius:16px; padding:1rem 1.2rem; }
 .admin__fb-msg { color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere; }

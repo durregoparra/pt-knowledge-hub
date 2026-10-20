@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { KNOWLEDGE_TYPES, SOURCE_TYPES, STATUSES, type Knowledge } from '@/lib/knowledge';
+import type { KnowledgeVersion } from '@/lib/knowledge-versions';
 
 type Signup = { email: string; created_at: string };
 type Feedback = { message: string; email: string | null; created_at: string };
 type KnowledgeRow = Knowledge & { owner: string };
+type VersionRow = KnowledgeVersion & { owner: string };
 type Loaded<T> = { state: 'loading' } | { state: 'error' } | { state: 'ok'; rows: T[] };
 
 const fmtDate = (iso: string) => new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
@@ -45,6 +47,7 @@ export default function AdminDashboard() {
   const [signups, setSignups] = useState<Loaded<Signup>>({ state: 'loading' });
   const [feedback, setFeedback] = useState<Loaded<Feedback>>({ state: 'loading' });
   const [knowledge, setKnowledge] = useState<Loaded<KnowledgeRow>>({ state: 'loading' });
+  const [versions, setVersions] = useState<Loaded<VersionRow>>({ state: 'loading' });
 
   useEffect(() => {
     let current = true;
@@ -57,6 +60,9 @@ export default function AdminDashboard() {
     fetchRows<KnowledgeRow>('/api/admin/knowledge')
       .then((rows) => { if (current) setKnowledge({ state: 'ok', rows }); })
       .catch((err) => { console.error(err); if (current) setKnowledge({ state: 'error' }); });
+    fetchRows<VersionRow>('/api/admin/knowledge-versions')
+      .then((rows) => { if (current) setVersions({ state: 'ok', rows }); })
+      .catch((err) => { console.error(err); if (current) setVersions({ state: 'error' }); });
     return () => { current = false; };
   }, []);
 
@@ -85,6 +91,38 @@ export default function AdminDashboard() {
                       <td>{SOURCE_TYPES[r.source_type]}</td>
                       <td>{STATUSES[r.status]}</td>
                       <td className="admin__date">{fmtDate(r.created_at)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="admin__panel">
+        <div className="admin__panel-head">
+          <h2 className="h4">Knowledge versions <span className="admin__count">{count(versions)}</span></h2>
+        </div>
+        <div className="admin__panel-body">
+          {versions.state === 'loading' && 'Loading…'}
+          {versions.state === 'error' && 'Could not load knowledge versions.'}
+          {versions.state === 'ok' && versions.rows.length === 0 && 'No documents have been replaced yet.'}
+          {versions.state === 'ok' && versions.rows.length > 0 && (
+            <div className="admin__table-wrap">
+              <table className="admin__table">
+                <thead><tr><th>Name</th><th>Version</th><th>Owner</th><th>Type</th><th>Source</th><th>What changed</th><th>Added</th><th>Replaced</th></tr></thead>
+                <tbody>
+                  {versions.rows.map((r) => (
+                    <tr key={r.id}>
+                      <td>{r.document_name}</td>
+                      <td>{r.version_number}</td>
+                      <td>{r.owner}</td>
+                      <td>{KNOWLEDGE_TYPES[r.knowledge_type]}</td>
+                      <td>{SOURCE_TYPES[r.source_type]}</td>
+                      <td>{r.description}</td>
+                      <td className="admin__date">{fmtDate(r.created_at)}</td>
+                      <td className="admin__date">{fmtDate(r.replaced_at)}</td>
                     </tr>
                   ))}
                 </tbody>
