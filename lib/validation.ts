@@ -36,12 +36,6 @@ export function parseChoice<K extends string>(input: unknown, options: Record<K,
   return { ok: true, value: input as K };
 }
 
-// A row id (bigint identity): a positive whole number.
-export function parseId(input: unknown): Parsed<number> {
-  if (typeof input !== 'number' || !Number.isSafeInteger(input) || input < 1) return { ok: false };
-  return { ok: true, value: input };
-}
-
 // Passwords are not trimmed. 72 is the longest password Supabase Auth accepts.
 export const PASSWORD_MIN = 8;
 export function parsePassword(input: unknown): Parsed<string> {
