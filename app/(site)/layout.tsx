@@ -3,9 +3,9 @@ import { FONTS_HREF } from '@/lib/fonts';
 import '../globals.css';
 
 export const metadata: Metadata = {
-  title: 'Paraíso Tropical Knowledge Hub — Company knowledge, ready when you need it',
+  title: 'Knowledge Connect — Company knowledge, ready when you need it',
   description:
-    "A centralized knowledge management platform that captures, organizes, and makes Paraíso Tropical's company knowledge accessible and actionable — with guidance from Maria, the Hub's virtual assistant.",
+    'An enterprise knowledge management platform that helps organizations connect employees with reliable company knowledge — with guidance from Maria, the AI Knowledge Assistant.',
 };
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {

@@ -15,7 +15,7 @@ export default async function AdminPage() {
 
   return (
     <>
-      <AppBar label="Knowledge Hub · Admin" email={user.email} />
+      <AppBar label="Admin" email={user.email} />
       <main className="container pad-x admin__main">
         {isAdmin ? (
           <AdminDashboard />
@@ -23,7 +23,7 @@ export default async function AdminPage() {
           <section className="admin__login">
             <h1 className="h3">Admin access only</h1>
             <p className="admin__muted">Your account does not have access to the admin panel.</p>
-            <p><a href={APP_HOME}>Back to the Knowledge Hub</a></p>
+            <p><a href={APP_HOME}>Back to Knowledge Connect</a></p>
           </section>
         )}
       </main>

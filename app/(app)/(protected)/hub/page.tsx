@@ -10,7 +10,7 @@ export default async function HubPage() {
     <main className="container pad-x admin__main">
       <section className="admin__panel">
         <div className="admin__panel-head">
-          <h1 className="h4">Welcome to the Knowledge Hub</h1>
+          <h1 className="h4">Welcome to Knowledge Connect</h1>
         </div>
         <div className="admin__panel-body">
           <p>Register the documents Maria should learn from. Each one starts as pending review.</p>

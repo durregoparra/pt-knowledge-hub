@@ -17,7 +17,7 @@ export default function Nav() {
       <div className="container pad-x nav__inner">
         <a href="#" className="nav__logo">
           <span className="mark" aria-hidden="true"></span>
-          <span>Paraíso Tropical<small>Knowledge Hub</small></span>
+          <span>Knowledge Connect<small>with Maria</small></span>
         </a>
         <nav className="nav__menu">
           <a className="nav__link" href="#library">Knowledge Library</a>

@@ -1,42 +1,46 @@
-# Paraíso Tropical Knowledge Hub
+# Knowledge Connect
 
 ## Reaction
 
 - **Understood:** That it is a virtual assistant that guides Paraíso Tropical employees.
 - **Did not understand:** Whether it also works as a repository of documents and other resources.
 
-A centralized space where employees can access and use company knowledge to
-support their daily work. Find information, explore company resources, and get
-guidance on operational questions and incidents through Maria, our virtual
-assistant.
+Knowledge Connect is an enterprise knowledge management platform that helps
+organizations connect employees with reliable company knowledge. Employees find
+information, explore company resources, and get guidance on operational questions
+and incidents through Maria, the platform's AI Knowledge Assistant.
 
 This platform is designed to make company knowledge easier to find, use, and
 maintain.
 
 ## Overview
 
-The Knowledge Hub brings together Paraíso Tropical's operational knowledge in one
+Knowledge Connect brings an organization's operational knowledge together in one
 place, so employees no longer need to search across scattered documents, inboxes,
 and systems. It has two core parts:
 
 - **Knowledge base** — a curated, maintained collection of company knowledge.
-- **Maria** — a virtual assistant that answers questions and guides employees
-  through operational situations using that knowledge base.
+- **Maria — AI Knowledge Assistant** — the assistant inside the platform that
+  answers questions and guides employees through operational situations using
+  that knowledge base.
 
 ## Meet Maria
 
-Maria is Paraíso Tropical's virtual assistant, designed to help employees find
-reliable information and guidance for their daily operations. Maria uses company
-knowledge from formal documents, emails, meeting minutes, and other approved
-sources to help employees understand the appropriate steps to follow when
-handling a question or incident.
+Maria is the AI Knowledge Assistant inside Knowledge Connect. She helps employees
+find relevant knowledge, understand the information available, get
+recommendations, and escalate requests when the available knowledge is
+insufficient. Maria uses company knowledge from formal documents, emails, meeting
+minutes, and other approved sources to help employees understand the appropriate
+steps to follow when handling a question or incident.
 
 ### What Maria does
 
-- Answers day-to-day operational questions from employees.
-- Explains the appropriate steps to follow when handling a question or incident.
-- Grounds every answer in approved company knowledge.
+- Helps employees find relevant knowledge and answers day-to-day operational questions.
+- Explains the information available and the appropriate steps to follow when
+  handling a question or incident.
+- Gives recommendations grounded in approved company knowledge.
 - Points employees to the relevant source documents and resources.
+- Escalates requests when the available knowledge is insufficient.
 
 ## Knowledge sources
 
@@ -49,18 +53,17 @@ handling a question or incident.
 
 ## Language support
 
-Paraíso Tropical employees are based in Latin America. The platform is
-multilingual: employees can interact in **English** or view information in
-**Spanish**, whichever they prefer.
+The current users, employees of the retail company Paraíso Tropical, are based in
+Latin America. The platform is multilingual: employees can interact in
+**English** or view information in **Spanish**, whichever they prefer.
 
 All development and internal construction of the platform — code, documentation,
 and this README — is done in **English**.
 
 ## Who it is for
 
-Paraíso Tropical employees who need quick, reliable guidance during daily
-operations, and the teams responsible for keeping company knowledge accurate and
-up to date.
+Employees who need quick, reliable guidance during daily operations, and the
+teams responsible for keeping company knowledge accurate and up to date.
 
 ## Goals
 

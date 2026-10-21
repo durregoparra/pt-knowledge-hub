@@ -12,7 +12,7 @@ export default function SignupForm() {
   return (
     <form className="form form--inline form--dark" id="signup-form" noValidate onSubmit={onSubmit}>
       <h3 className="form__title">Get early access</h3>
-      <p className="form__hint">Join the waitlist and we&apos;ll let you know when the Hub opens to your team.</p>
+      <p className="form__hint">Join the waitlist and we&apos;ll let you know when Knowledge Connect opens to your team.</p>
       <div className="form__row">
         <label className="sr-only" htmlFor="signup-email">Email</label>
         <input className="form__input" id="signup-email" name="email" type="email" placeholder="you@company.com" autoComplete="email" maxLength={254} required />

@@ -1,6 +1,6 @@
 ---
 name: nueva-entidad
-description: Add a new user-owned entity to the Knowledge Hub end to end — Supabase migration with an owner column and RLS, applied with the CLI; API routes that use the user's session; a signed-in page with a form and a list; an admin panel; and a two-user check that each user sees only their own rows. Use when the user asks to add a new entity, table or record type that signed-in users create and see.
+description: Add a new user-owned entity to Knowledge Connect end to end — Supabase migration with an owner column and RLS, applied with the CLI; API routes that use the user's session; a signed-in page with a form and a list; an admin panel; and a two-user check that each user sees only their own rows. Use when the user asks to add a new entity, table or record type that signed-in users create and see.
 argument-hint: <entity name> <fields, e.g. "name text, priority (low|medium|high), due date">
 ---
 

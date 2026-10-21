@@ -5,11 +5,11 @@ import { useState } from 'react';
 const ITEMS = [
   {
     q: 'Which sources does Maria use?',
-    a: 'Maria only uses the company knowledge stored in the Hub. She does not use information from outside the company.',
+    a: 'Maria only uses the company knowledge stored in Knowledge Connect. She does not use information from outside the company.',
   },
   {
     q: "What happens if Maria can't answer my question?",
-    a: "Maria tells you when something isn't covered by the Hub and points you to the right person or team to ask.",
+    a: "Maria tells you when something isn't covered by the available knowledge and escalates your request to the right person or team.",
   },
   {
     q: 'Can I use it in Spanish?',

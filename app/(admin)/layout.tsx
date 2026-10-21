@@ -3,7 +3,7 @@ import { FONTS_HREF } from '@/lib/fonts';
 import '../globals.css';
 
 export const metadata: Metadata = {
-  title: 'Admin — Paraíso Tropical Knowledge Hub',
+  title: 'Admin — Knowledge Connect',
   robots: { index: false, follow: false },
 };
 

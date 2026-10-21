@@ -33,7 +33,7 @@ export default function Home() {
             <div className="hero__grid">
               <div className="hero__content">
                 <h1 className="h1">Company knowledge, ready when you need it</h1>
-                <p className="lead">Paraíso Tropical Knowledge Hub is a centralized knowledge management platform designed to capture, organize, and make company knowledge accessible and actionable.</p>
+                <p className="lead">Knowledge Connect is an enterprise knowledge management platform that helps organizations connect employees with reliable company knowledge.</p>
                 <div className="hero__cta">
                   <a href="#ask" className="btn btn--red">Ask Maria</a>{' '}
                   <a href="#library" className="link-arrow">
@@ -47,7 +47,7 @@ export default function Home() {
                 <div className="chat" aria-hidden="true">
                   <div className="chat__head">
                     <div className="chat__ava"><MariaAvatar /></div>
-                    <div className="chat__who"><b>Maria</b><span>Virtual assistant · EN / ES</span></div>
+                    <div className="chat__who"><b>Maria</b><span>AI Knowledge Assistant · EN / ES</span></div>
                   </div>
                   <div className="chat__body">
                     <div className="bubble bubble--user">A customer wants to return an item without a receipt. What should I do?</div>
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="reveal">
               <span className="maria__badge"><span className="dot"></span> Ask Maria</span>
               <h2 className="h2">Get answers and guidance</h2>
-              <p className="lead">Maria, the Hub&apos;s virtual assistant, helps employees use this knowledge to answer questions and navigate day-to-day operational situations.</p>
+              <p className="lead">Maria, the AI Knowledge Assistant inside Knowledge Connect, helps employees find relevant knowledge, understand the information available, and get recommendations — and escalates requests when the available knowledge is not enough.</p>
               <div className="maria__cta">
                 <a href="#" className="btn btn--light">Ask Maria</a>
               </div>
@@ -222,7 +222,7 @@ export default function Home() {
           <div className="container pad-x faq__inner">
             <div className="reveal" style={{ textAlign: 'center' }}>
               <h2 className="h2">Frequently asked questions</h2>
-              <p className="lead" style={{ marginTop: '1rem' }}>How the Knowledge Hub and Maria work.</p>
+              <p className="lead" style={{ marginTop: '1rem' }}>How Knowledge Connect and Maria work.</p>
             </div>
             <Faq />
           </div>
@@ -234,7 +234,7 @@ export default function Home() {
             <div className="reveal">
               <span className="eyebrow">Feedback</span>
               <h2 className="h2" style={{ marginTop: '1rem' }}>Tell us what you think</h2>
-              <p className="lead" style={{ marginTop: '1.1rem' }}>Ideas, problems, or questions about the Hub and Maria — every comment helps us improve.</p>
+              <p className="lead" style={{ marginTop: '1.1rem' }}>Ideas, problems, or questions about Knowledge Connect and Maria — every comment helps us improve.</p>
             </div>
             <FeedbackForm />
           </div>
@@ -246,12 +246,12 @@ export default function Home() {
         <div className="container pad-x">
           <div className="footer__top">
             <div>
-              <div className="footer__brand"><span className="mark" aria-hidden="true"></span> Paraíso Tropical</div>
-              <p className="footer__tagline">The Knowledge Hub — one place to capture, organize and use company knowledge.</p>
+              <div className="footer__brand"><span className="mark" aria-hidden="true"></span> Knowledge Connect</div>
+              <p className="footer__tagline">Connecting employees with reliable company knowledge — with Maria, your AI Knowledge Assistant.</p>
               <div className="footer__badges" aria-hidden="true"><i>SECURE ACCESS</i><i>EN / ES</i></div>
             </div>
             <div className="footer__col">
-              <h5>Knowledge Hub</h5>
+              <h5>Platform</h5>
               <a href="#ask">Ask Maria</a><a href="#library">Knowledge Library</a><a href="#add">Add Knowledge</a><a href="#manage">Manage Knowledge</a>
             </div>
             <div className="footer__col">
@@ -260,11 +260,11 @@ export default function Home() {
             </div>
             <div className="footer__col">
               <h5>Company</h5>
-              <a href="https://paraisotropical.ca" target="_blank" rel="noopener">paraisotropical.ca</a><a href="#">About the Hub</a><a href="#">Contact</a>
+              <a href="#">About Knowledge Connect</a><a href="#">Contact</a>
             </div>
           </div>
           <div className="footer__bottom">
-            <span>© 2026 Paraíso Tropical. Internal tool for employees.</span>
+            <span>© 2026 Knowledge Connect. Enterprise knowledge management platform.</span>
             <nav>
               <a href="#">Privacy</a><a href="#">Acceptable use</a><a href="#">Language: EN / ES</a>
             </nav>

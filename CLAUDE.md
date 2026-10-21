@@ -4,8 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## The app
 
+- **What it is:** Knowledge Connect, an enterprise knowledge management platform that helps organizations connect employees with reliable company knowledge. Maria — AI Knowledge Assistant — is the assistant inside the platform (never the platform's name).
 - **Who uses it:** the employees of a retail company called Paraíso Tropical.
-- **What it records (main entity):** Knowledge — documents that make up the company's knowledge, some formal and some informal. Maria, the chat assistant, uses these documents to guide employees.
+- **What it records (main entity):** Knowledge — documents that make up the company's knowledge, some formal and some informal. Maria uses these documents to help employees find relevant knowledge, understand it, get recommendations, and escalate requests when the knowledge is insufficient.
 - **Its data:**
   - Knowledge: ID, document name, path, knowledge type (formal rule, operational guide), source type (SOP, email, meeting), status.
 - **Who sees what:** a user sees only their own records; the admin sees everything.
@@ -24,7 +25,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Paraíso Tropical Knowledge Hub: a marketing landing page (waitlist + feedback forms), a signed-in hub where employees register knowledge documents, and a private admin page, backed by Supabase. Maria, the virtual assistant shown on the landing, is not implemented yet — the chat in the hero is static markup.
+Knowledge Connect: a marketing landing page (waitlist + feedback forms), a signed-in hub (`/hub`) where employees register knowledge documents, and a private admin page, backed by Supabase. Maria, the AI Knowledge Assistant shown on the landing, is not implemented yet — the chat in the hero is static markup.
 
 All code, comments, docs and site copy are written in **English**, even though the owner works in Spanish.
 
@@ -71,7 +72,6 @@ There is no Supabase client in the browser. There are two on the server, both ma
 **Auth.** `/login` and `/register` render `components/AuthForm.tsx`, which POSTs to `/api/auth/login` and `/api/auth/register`; `components/LogoutButton.tsx` POSTs to `/api/auth/logout`. `proxy.ts` (Next.js 16's name for middleware) refreshes the session cookies and redirects signed-out visitors of `/hub` and `/admin` to `/login?next=…`; keep its `matcher` and `PROTECTED` list in step with new app paths. The check that counts is in `app/(app)/(protected)/layout.tsx`: put every signed-in page under that folder. The matcher also covers `/api/knowledge` (to refresh cookies; the route answers 401 itself rather than redirecting).
 
 **Knowledge.** `/hub` renders `components/KnowledgeLibrary.tsx`, which GETs and POSTs `/api/knowledge`. That route uses `getSessionSupabase()`, so RLS limits it to the user's own rows; it validates with `lib/validation.ts` and inserts only `name`, `path`, `knowledge_type` and `source_type`. Option keys and labels live in `lib/knowledge.ts` and must match the table check constraints. The admin reads every document through `/api/admin/knowledge`, which adds each owner's email via `fetchUserEmails()` in `lib/admin-data.ts`.
-
 
 **Admin gate.** `lib/admin.ts` compares the session email with `ADMIN_EMAILS` (comma-separated). `app/(admin)/admin/page.tsx` shows the dashboard only to admins, and each `/api/admin/*` route calls `requireAdmin()` before reading. `ADMIN_EMAILS` trusts the email on the account, and the Supabase project currently auto-confirms new emails — so only list addresses that already have an account, or turn on email confirmation first.
 
