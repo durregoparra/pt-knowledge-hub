@@ -112,9 +112,9 @@ The prototype exists to test demand: how many companies are interested, how much
 |---|---|---|
 | **Registered users** | How many people signed up? | Number of accounts in Supabase Auth. |
 | **Activation** | Do people who sign up actually load knowledge? | Distinct owners of `knowledge` rows ÷ registered users. |
-| **Return** | Do people come back? | Users with `visits` rows on two or more days ÷ registered users. Counts start on 2026-10-21, when `visits` was created. |
+| **Returning users** | Do people come back? | Users with `visits` rows on two or more days ÷ registered users. Counts start on 2026-10-21, when `visits` was created. |
 | **Documents per company** | How big is a company's knowledge base, and therefore what would it cost to serve? | Median number of documents per company, over every company that has members, including companies with no documents. Each document counts under its owner's company (`company_members`); documents of users without a company, such as the platform admin, are left out. The note also shows how many companies have at least one document. |
-| **Everyday knowledge** | Is what people load informal, day-to-day knowledge, or only official procedures? | Documents with `knowledge_type = operational_guide` or `source_type` `email` or `meeting` ÷ all documents. |
+| **Operational knowledge** | Is what people load informal, day-to-day knowledge, or only official procedures? | Documents with `knowledge_type = operational_guide` or `source_type` `email` or `meeting` ÷ all documents. |
 | **Per week** (chart, last 12 weeks) | Is sign-up and usage growing? | New users: accounts whose `created_at` falls in the week. Users who entered the app: distinct users with a `visits` row in the week. |
 
 The database does not store document size, so the size of a company's knowledge source cannot be measured yet.

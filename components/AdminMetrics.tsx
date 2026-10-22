@@ -36,10 +36,10 @@ function axisTicks(max: number): number[] {
   return [0, 1, 2, 3, 4].map((i) => i * step);
 }
 
-// Chart geometry, in viewBox units.
-const W = 720, H = 260, LEFT = 36, RIGHT = 8, TOP = 12, BOTTOM = 28;
+// Chart geometry, in viewBox units. The wide aspect keeps the chart short at full width.
+const W = 960, H = 200, LEFT = 36, RIGHT = 8, TOP = 12, BOTTOM = 28;
 const PLOT_W = W - LEFT - RIGHT, PLOT_H = H - TOP - BOTTOM;
-const BAR = 18, GAP = 2;
+const BAR = 20, GAP = 2;
 
 // Path for a column with a 4px rounded top and a square base.
 function column(x: number, y: number, w: number, h: number): string {
@@ -112,9 +112,9 @@ function WeeklyChart({ weeks }: { weeks: Week[] }) {
         </div>
       </div>
       <details className="admin__chart-data">
-        <summary>Show as table</summary>
+        <summary>View data</summary>
         <div className="admin__table-wrap">
-          <table className="admin__table">
+          <table className="admin__table admin__table--compact">
             <thead><tr><th>Week of</th><th>New users</th><th>Users who entered the app</th></tr></thead>
             <tbody>
               {weeks.map((w) => (
@@ -153,14 +153,14 @@ export default function AdminMetrics() {
   const tiles = [
     { label: 'Registered users', value: String(m.users), note: 'Accounts on Knowledge Connect' },
     { label: 'Activation', value: pct(m.activationRate), note: `${m.activated} of ${m.users} users registered at least one knowledge document` },
-    { label: 'Return', value: pct(m.returnRate), note: `${m.returning} of ${m.users} users entered the app on two or more days` },
+    { label: 'Returning users', value: pct(m.returnRate), note: `${m.returning} of ${m.users} users entered the app on two or more days` },
     {
       label: 'Documents per company',
       value: String(Math.round(m.medianDocsPerCompany * 10) / 10),
       note: `Median across ${m.companies} ${m.companies === 1 ? 'company' : 'companies'}; ${m.companiesWithDocs} have at least one document`,
     },
     {
-      label: 'Everyday knowledge',
+      label: 'Operational knowledge',
       value: pct(m.everydayRate),
       note: `${m.everyday} of ${m.documents} documents are operational guides or come from email or meetings`,
     },
@@ -177,9 +177,9 @@ export default function AdminMetrics() {
           </section>
         ))}
       </div>
-      <section className="admin__panel">
+      <section className="admin__panel admin__panel--chart">
         <div className="admin__panel-head">
-          <h2 className="h4">Per week</h2>
+          <h2 className="h4">Weekly activity</h2>
           <span className="admin__date">Last {m.weeks.length} weeks, starting Monday (UTC)</span>
         </div>
         <WeeklyChart weeks={m.weeks} />
