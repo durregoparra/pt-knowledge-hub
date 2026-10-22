@@ -28,6 +28,9 @@ export default function Nav() {
         <div className="nav__actions">
           <a href="#ask" className="btn btn--primary">Ask Maria</a>
           <span className="nav__lang"><b>EN</b> · ES</span>
+          <a href="/login" className="nav__login" aria-label="Sign in" title="Sign in">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" /><path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+          </a>
           <button className="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
       </div>

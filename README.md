@@ -82,8 +82,9 @@ npm run dev
 
 Then open http://localhost:3000 (the admin page is at `/admin`).
 
-- The waitlist and feedback forms post to `/api/signups` and `/api/feedback`. Those
-  server routes write to Supabase with the secret key; the browser never does.
+- The feedback form posts to `/api/feedback`. That server route writes to Supabase
+  with the secret key; the browser never does.
+- Users sign in at `/login`; people without an account create one at `/register`.
 - The admin page signs in with Supabase Auth and reads with the public key.
 - Settings come from `.env.local` (not committed): `SUPABASE_URL`,
   `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL`,

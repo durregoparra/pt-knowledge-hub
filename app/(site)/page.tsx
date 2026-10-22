@@ -3,7 +3,6 @@ import FeedbackForm from '@/components/FeedbackForm';
 import MariaAvatar from '@/components/MariaAvatar';
 import Nav from '@/components/Nav';
 import RevealObserver from '@/components/RevealObserver';
-import SignupForm from '@/components/SignupForm';
 
 const Confetti = ({ light = false }: { light?: boolean }) => (
   <div className={light ? 'confetti confetti--light' : 'confetti'} aria-hidden="true">
@@ -212,8 +211,6 @@ export default function Home() {
               <a href="#" className="btn btn--light">Ask Maria</a>{' '}
               <a href="#library" className="btn btn--outline-light">Explore the Library</a>
             </div>
-
-            <SignupForm />
           </div>
         </header>
 

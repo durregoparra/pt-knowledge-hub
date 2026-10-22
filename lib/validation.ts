@@ -36,6 +36,15 @@ export function parseChoice<K extends string>(input: unknown, options: Record<K,
   return { ok: true, value: input as K };
 }
 
+// Company name: trimmed, inner whitespace collapsed, 1..max characters, at least one letter or
+// digit. Mirrors the link_new_user_to_company() trigger, which refuses anything else.
+export function parseCompanyName(input: unknown, max: number): Parsed<string> {
+  if (typeof input !== 'string') return { ok: false };
+  const name = input.trim().replace(/\s+/g, ' ');
+  if (name.length < 1 || name.length > max || !/[\p{L}\p{N}]/u.test(name)) return { ok: false };
+  return { ok: true, value: name };
+}
+
 // Passwords are not trimmed. 72 is the longest password Supabase Auth accepts.
 export const PASSWORD_MIN = 8;
 export function parsePassword(input: unknown): Parsed<string> {
