@@ -404,6 +404,30 @@ body.admin { background:var(--cream); min-height:100vh; }
 .admin__fb-list { display:grid; gap:.9rem; }
 .admin__fb { border:1px solid var(--line); border-radius:16px; padding:1rem 1.2rem; }
 .admin__fb-msg { color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere; }
+.admin__page-head { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.admin__page-head--end { justify-content:flex-end; margin-bottom:-1rem; }
+
+/* metrics */
+.admin__metrics { display:grid; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr)); gap:1.2rem; }
+.admin__metric-label { font:800 .75rem/1.4 var(--font-body); letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); }
+.admin__metric-value { font:700 3rem/1.1 var(--font-body); color:var(--green); margin:.5rem 0 .4rem; }
+.admin__metric-note { color:var(--text-muted); font-size:.92rem; }
+.admin__chart-legend { display:flex; gap:1.4rem; flex-wrap:wrap; margin-bottom:1rem; font-size:.9rem; font-weight:700; color:var(--ink); }
+.admin__chart-legend li { display:flex; align-items:center; }
+.admin__chart-key { display:inline-block; width:.75rem; height:.75rem; border-radius:3px; margin-right:.5rem; flex:none; }
+.admin__chart-plot { position:relative; min-width:36rem; }
+.admin__chart-plot svg { display:block; width:100%; height:auto; overflow:visible; }
+.admin__chart-grid { stroke:var(--line); stroke-width:1; }
+.admin__chart-tick { fill:var(--text-muted); font:600 11px var(--font-body); font-variant-numeric:tabular-nums; }
+.admin__chart-bar--new { fill:var(--green-mid); background:var(--green-mid); }
+.admin__chart-bar--active { fill:var(--orange); background:var(--orange); }
+.admin__chart-hit { fill:transparent; }
+.admin__chart-hit:hover { fill:rgba(3,59,50,.05); }
+.admin__chart-tip { position:absolute; top:0; display:grid; gap:.25rem; padding:.6rem .8rem; background:var(--paper); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow-card); font-size:.85rem; color:var(--ink); white-space:nowrap; pointer-events:none; }
+.admin__chart-tip span { display:flex; align-items:center; }
+.admin__chart-data { margin-top:1rem; font-size:.9rem; }
+.admin__chart-data summary { cursor:pointer; font-weight:700; color:var(--green); }
+.admin__chart-data .admin__table-wrap { margin-top:.8rem; }
 .admin__fb-meta { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-top:.6rem; font-size:.85rem; font-weight:700; color:var(--green); overflow-wrap:anywhere; }
 
 /* =========================================================================

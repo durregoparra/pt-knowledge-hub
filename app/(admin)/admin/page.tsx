@@ -18,7 +18,12 @@ export default async function AdminPage() {
       <AppBar label="Admin" email={user.email} />
       <main className="container pad-x admin__main">
         {isAdmin ? (
-          <AdminDashboard />
+          <>
+            <div className="admin__page-head admin__page-head--end">
+              <a href="/admin/metricas">Metrics</a>
+            </div>
+            <AdminDashboard />
+          </>
         ) : (
           <section className="admin__login">
             <h1 className="h3">Admin access only</h1>
