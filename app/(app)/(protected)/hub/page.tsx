@@ -20,6 +20,7 @@ export default async function HubPage() {
         </div>
         <div className="admin__panel-body">
           {company && <p>{membershipMessage(company)}</p>}
+          {company?.isAdmin && <p><a href="/hub/review">Review your company&rsquo;s documents</a></p>}
           <p>Register the documents Maria should learn from. Each one starts as pending review.</p>
           {isAdminEmail(user?.email) && <p><a href="/admin">Go to the admin panel</a></p>}
         </div>

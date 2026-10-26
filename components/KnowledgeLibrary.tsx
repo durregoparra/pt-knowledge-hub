@@ -106,17 +106,18 @@ export default function KnowledgeLibrary() {
           {docs.state === 'ok' && docs.rows.length === 0 && 'You have not registered any documents yet.'}
           {docs.state === 'ok' && docs.rows.length > 0 && (
             <div className="admin__table-wrap">
-              <table className="admin__table">
-                <thead><tr><th>Name</th><th>Path</th><th>Type</th><th>Source</th><th>Status</th><th>Added</th></tr></thead>
+              <table className="admin__table admin__table--stack">
+                <thead><tr><th>Name</th><th>Path</th><th>Type</th><th>Source</th><th>Status</th><th>Review comment</th><th>Added</th></tr></thead>
                 <tbody>
                   {docs.rows.map((r) => (
                     <tr key={r.id}>
-                      <td>{r.name}</td>
-                      <td>{r.path}</td>
-                      <td>{KNOWLEDGE_TYPES[r.knowledge_type]}</td>
-                      <td>{SOURCE_TYPES[r.source_type]}</td>
-                      <td>{STATUSES[r.status]}</td>
-                      <td className="admin__date">{fmtDate(r.created_at)}</td>
+                      <td data-label="Name">{r.name}</td>
+                      <td className="admin__cell--wrap" data-label="Path">{r.path}</td>
+                      <td data-label="Type">{KNOWLEDGE_TYPES[r.knowledge_type]}</td>
+                      <td data-label="Source">{SOURCE_TYPES[r.source_type]}</td>
+                      <td data-label="Status">{STATUSES[r.status]}</td>
+                      <td className="admin__cell--wide" data-label="Review comment"><span className="admin__note">{r.review_comment ?? '—'}</span></td>
+                      <td className="admin__date" data-label="Added">{fmtDate(r.created_at)}</td>
                     </tr>
                   ))}
                 </tbody>

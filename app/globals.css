@@ -396,10 +396,27 @@ body.admin { background:var(--cream); min-height:100vh; }
 .admin__table-wrap { overflow-x:auto; }
 .admin__table { width:100%; border-collapse:collapse; font-size:.95rem; }
 .admin__table th { text-align:left; font-size:.75rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); padding:.6rem .8rem; border-bottom:1.5px solid var(--line); }
-.admin__table td { padding:.75rem .8rem; border-bottom:1px solid var(--line); color:var(--ink); word-break:break-all; }
+.admin__table td { padding:.75rem .8rem; border-bottom:1px solid var(--line); color:var(--ink); overflow-wrap:break-word; }
 .admin__table tr:last-child td { border-bottom:0; }
 .admin__date { color:var(--text-muted); white-space:nowrap; font-size:.88rem; }
-.admin__table td.admin__date { word-break:normal; }
+/* Long unbroken values (paths, emails) may break anywhere, but only inside a readable width. */
+.admin__table td.admin__cell--wrap { overflow-wrap:anywhere; min-width:12rem; }
+.admin__table td.admin__cell--wide { min-width:16rem; }
+.admin__note { display:block; white-space:pre-wrap; overflow-wrap:anywhere; }
+
+/* Stacked tables: on phones each row becomes a card, the first cell its title and every other
+   cell a label (from data-label) above its value. */
+@media (max-width:720px) {
+  .admin__table--stack, .admin__table--stack tbody, .admin__table--stack tr, .admin__table--stack td { display:block; width:100%; }
+  .admin__table--stack thead { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); }
+  .admin__table--stack tr { padding:1.1rem 0; border-bottom:1px solid var(--line); }
+  .admin__table--stack tr:first-child { padding-top:0; }
+  .admin__table--stack tr:last-child { border-bottom:0; padding-bottom:0; }
+  .admin__table--stack td, .admin__table--stack td[class] { min-width:0; padding:.35rem 0; border:0; overflow-wrap:anywhere; }
+  .admin__table--stack td::before { content:attr(data-label); display:block; margin-bottom:.1rem; font-size:.75rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); }
+  .admin__table--stack td:first-child { padding-top:0; font-weight:800; font-size:1.05rem; color:var(--green); }
+  .admin__table--stack td:first-child::before { content:none; }
+}
 
 .admin__fb-list { display:grid; gap:.9rem; }
 .admin__fb { border:1px solid var(--line); border-radius:16px; padding:1rem 1.2rem; }
@@ -534,4 +551,9 @@ body.admin { background:var(--cream); min-height:100vh; }
   .nav__burger { width:38px; height:38px; }
   .nav__login { width:38px; height:38px; }
   .nav__login svg { width:19px; height:19px; }
+
+  .admin__bar-inner { flex-wrap:wrap; row-gap:.5rem; padding-block:.75rem; }
+  .admin__user { width:100%; justify-content:space-between; }
+  .admin__main { padding-block:1.5rem 3rem; gap:1.25rem; }
+  .admin__panel { padding:1.2rem; }
 }

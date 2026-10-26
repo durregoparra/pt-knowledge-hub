@@ -20,6 +20,7 @@ export const STATUSES = {
 
 export const NAME_MAX = 200;
 export const PATH_MAX = 1000;
+export const REVIEW_COMMENT_MAX = 1000;
 
 export type KnowledgeType = keyof typeof KNOWLEDGE_TYPES;
 export type SourceType = keyof typeof SOURCE_TYPES;
@@ -33,6 +34,8 @@ export type Knowledge = {
   source_type: SourceType;
   status: Status;
   created_at: string;
+  review_comment: string | null;
+  reviewed_at: string | null;
 };
 
-export const KNOWLEDGE_COLUMNS = 'id, name, path, knowledge_type, source_type, status, created_at';
+export const KNOWLEDGE_COLUMNS = 'id, name, path, knowledge_type, source_type, status, created_at, review_comment, reviewed_at';

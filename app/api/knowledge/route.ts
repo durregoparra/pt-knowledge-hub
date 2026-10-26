@@ -3,8 +3,9 @@ import { getSessionSupabase } from '@/lib/supabase-session';
 import { KNOWLEDGE_COLUMNS, KNOWLEDGE_TYPES, NAME_MAX, PATH_MAX, SOURCE_TYPES } from '@/lib/knowledge';
 import { parseChoice, parseText, readJsonObject } from '@/lib/validation';
 
-// The signed-in user's knowledge documents. Publishable key + session, so RLS limits every
-// query to the user's own rows and fills in user_id and status itself.
+// The signed-in user's knowledge documents. Publishable key + session, so RLS applies and
+// fills in user_id and status itself. RLS also lets a company administrator read the whole
+// company's documents, so GET filters by owner explicitly.
 
 export async function GET() {
   const supabase = await getSessionSupabase();
@@ -12,6 +13,7 @@ export async function GET() {
   if (!auth.user) return NextResponse.json({ ok: false }, { status: 401 });
 
   const { data, error } = await supabase.from('knowledge').select(KNOWLEDGE_COLUMNS)
+    .eq('user_id', auth.user.id)
     .order('created_at', { ascending: false });
   if (error) {
     console.error('knowledge read failed', error);
